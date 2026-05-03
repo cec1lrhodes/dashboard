@@ -1,0 +1,21 @@
+@reference "./index.css";
+
+.page {
+  @apply min-h-screen bg-[#E5E7EB] p-0 text-[#111827] lg:p-8;
+}
+
+.sidebar {
+  @apply bg-[#FFFFFF] fixed left-0 top-0 w-[290px] h-screen overflow-hidden;
+}
+
+.input {
+  @apply bg-[#F9FAFB] border border-[#D1D5DB] rounded-md p-2 w-[341px] h-[46px];
+}
+
+.button {
+  @apply bg-[#F9FAFB] border border-[#D1D5DB] rounded-md p-2 w-[259px] h-[97px];
+}
+
+.smallCard {
+  @apply bg-white h-[345px] w-[350px] rounded-lg;
+}
