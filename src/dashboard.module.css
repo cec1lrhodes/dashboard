@@ -5,11 +5,11 @@
 }
 
 .sidebar {
-  @apply bg-[#FFFFFF] fixed left-0 top-0 w-[290px] h-screen overflow-hidden;
+  @apply bg-[#FFFFFF] fixed left-0 top-0 w-[290px] h-screen overflow-hidden px-[38px] pt-[40px] justify-between;
 }
 
 .input {
-  @apply bg-[#F9FAFB] border border-[#D1D5DB] rounded-md p-2 w-[341px] h-[46px];
+  @apply bg-[#F9FAFB] border border-[#D1D5DB] rounded-md p-2 w-[341px] h-[46px] font-dm-sans text-[#8F9BBA];
 }
 
 .button {
@@ -18,4 +18,8 @@
 
 .smallCard {
   @apply bg-white h-[345px] w-[350px] rounded-lg;
+}
+
+.sideBarButton {
+  @apply font-dm-sans font-medium text-[16px] leading-[28px] tracking-[-0.02em] text-[#A3AED0] flex items-center gap-[14px] px-4;
 }
