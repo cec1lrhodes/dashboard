@@ -8,7 +8,19 @@ import payouts from "./screenshots/payouts.png";
 import settings from "./screenshots/settings.png";
 import logout from "./screenshots/logout.png";
 import vector from "./screenshots/vector.png";
+import searchicon from "./screenshots/searchicon.png";
 
+import { BarChart, Bar, ResponsiveContainer } from "recharts";
+
+const TOTAL = 45;
+
+const data = [
+  { value: 20, max: TOTAL - 20 },
+  { value: 30, max: TOTAL - 30 },
+  { value: 25, max: TOTAL - 25 },
+  { value: 35, max: TOTAL - 35 },
+  { value: 15, max: TOTAL - 15 },
+];
 function App() {
   return (
     <div className={styles.page}>
@@ -111,19 +123,58 @@ function App() {
             </p>
           </div>
 
-          <input className={styles.input} placeholder="Search..." />
+          <div className={styles.input + " flex items-center gap-3"}>
+            <img
+              src={searchicon}
+              alt="searchicon"
+              className="w-[11px] h-[11px]"
+            />
+            <input
+              className="outline-none text-[#707EAE] w-full"
+              placeholder="Search..."
+            />
+          </div>
         </header>
 
         {/* Page content */}
         <div className="flex gap-5 px-[31px] py-4">
-          <button className={styles.button}>1</button>
-          <button className={styles.button}>2</button>
-          <button className={styles.button}>3</button>
-          <button className={styles.button}>4</button>
+          <div className={styles.mainCard}>
+            <div className="flex flex-col px-6">
+              <p className="text-[#A3AED0] text-[14px] whitespace-nowrap font-dm-sans font-medium leading-[24px] tracking-[-0.02em]">
+                Spent this month
+              </p>
+              <p className="text-[#1B2559] text-[24px]  font-dm-sans font-bold leading-[32px] tracking-[-0.02em]">
+                $682.5
+              </p>
+            </div>
+
+            <div className="mr-[29px]">
+              <ResponsiveContainer width={85} height={60}>
+                <BarChart data={data} barSize={8} barCategoryGap="20%">
+                  <Bar
+                    dataKey="value"
+                    fill="#4318FF"
+                    radius={[8, 8, 8, 8]}
+                    stackId="a"
+                  />
+                  <Bar
+                    dataKey="max"
+                    fill="#E9EDF7"
+                    radius={[8, 8, 8, 8]}
+                    stackId="a"
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className={styles.mainCard}>2</div>
+          <div className={styles.mainCard}>3</div>
+          <div className={styles.mainCard}>4</div>
         </div>
 
         <section className="flex gap-5 px-[31px] ">
-          <div className="bg-white h-[345px] w-[720px]"></div>
+          <div className="bg-white h-[345px] w-[720px] rounded-[20px] "></div>
           <div className={styles.smallCard}></div>
         </section>
 
