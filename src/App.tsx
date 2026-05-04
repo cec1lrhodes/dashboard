@@ -9,8 +9,9 @@ import settings from "./screenshots/settings.png";
 import logout from "./screenshots/logout.png";
 import vector from "./screenshots/vector.png";
 import searchicon from "./screenshots/searchicon.png";
+import group from "./screenshots/group.png";
 
-import { BarChart, Bar, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, ResponsiveContainer, LineChart, Line } from "recharts";
 
 const TOTAL = 45;
 
@@ -21,6 +22,19 @@ const data = [
   { value: 35, max: TOTAL - 35 },
   { value: 15, max: TOTAL - 15 },
 ];
+
+const lineData = [{ value: 10 }, { value: 35 }, { value: 30 }, { value: 50 }];
+
+const earningsIconData = [{ value: 17 }, { value: 23 }, { value: 10 }];
+const earningsActivityData = [
+  { value: 3 },
+  { value: 9 },
+  { value: 4 },
+  { value: 7 },
+  { value: 9 },
+  { value: 10 },
+];
+
 function App() {
   return (
     <div className={styles.page}>
@@ -138,6 +152,7 @@ function App() {
 
         {/* Page content */}
         <div className="flex gap-5 px-[31px] py-4">
+          {/* CARD 1 */}
           <div className={styles.mainCard}>
             <div className="flex flex-col px-6">
               <p className="text-[#A3AED0] text-[14px] whitespace-nowrap font-dm-sans font-medium leading-[24px] tracking-[-0.02em]">
@@ -149,7 +164,7 @@ function App() {
             </div>
 
             <div className="mr-[29px]">
-              <ResponsiveContainer width={85} height={60}>
+              <ResponsiveContainer width={85} height={80}>
                 <BarChart data={data} barSize={8} barCategoryGap="20%">
                   <Bar
                     dataKey="value"
@@ -168,9 +183,118 @@ function App() {
             </div>
           </div>
 
-          <div className={styles.mainCard}>2</div>
-          <div className={styles.mainCard}>3</div>
-          <div className={styles.mainCard}>4</div>
+          {/* CARD 2 */}
+          <div className={styles.mainCard}>
+            <div className="flex gap-3  px-6">
+              <div className="w-[50px] h-[50px] rounded-full bg-linear-to-b from-[#868CFF] shrink-0 to-[#4318FF] flex items-center justify-center">
+                <img src={group} alt="clients" className="w-[25px] h-[18px]" />
+              </div>
+              <div className="flex flex-col">
+                <p className="text-[#A3AED0] text-[16px] whitespace-nowrap font-dm-sans font-bold leading-[28px] tracking-[-0.02em]">
+                  New clients
+                </p>
+                <p className="text-[#1B2559] text-[28px]  font-dm-sans font-bold leading-[30px] tracking-[-0.02em]">
+                  321
+                </p>
+              </div>
+            </div>
+
+            <div className="ml-auto mr-[22.5px] w-[58px] overflow-hidden">
+              <ResponsiveContainer width="100%" height={90}>
+                <LineChart
+                  data={lineData}
+                  margin={{ top: 5, right: 0, left: 2, bottom: 5 }}
+                >
+                  <defs>
+                    <linearGradient
+                      id="clientsLineGradient"
+                      x1="0"
+                      y1="0"
+                      x2="1"
+                      y2="0"
+                    >
+                      <stop offset="0%" stopColor="#4F2CFF" />
+                      <stop offset="100%" stopColor="#CBBEFF" />
+                    </linearGradient>
+                  </defs>
+                  <Line
+                    type="monotone"
+                    dataKey="value"
+                    stroke="url(#clientsLineGradient)"
+                    strokeWidth={3}
+                    dot={false}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* CARD 3 */}
+          <div className={styles.mainCard}>
+            <div className="flex gap-3 px-6">
+              <div className="w-[50px] h-[50px] rounded-full bg-[#F4F7FE] flex items-center justify-center ">
+                <ResponsiveContainer width={25} height={25}>
+                  <BarChart
+                    data={earningsIconData}
+                    barSize={5}
+                    margin={{ top: 1, right: 0, left: 0, bottom: 0 }}
+                  >
+                    <Bar dataKey="value" fill="#4318FF" radius={[8, 8, 8, 8]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="flex flex-col">
+                <p className="text-[#A3AED0] text-[14px] whitespace-nowrap font-dm-sans font-medium leading-[24px] tracking-[-0.02em]">
+                  Earnings
+                </p>
+                <p className="text-[#1B2559] text-[24px]  font-dm-sans font-bold leading-[32px] tracking-[-0.02em]">
+                  $350.40
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* CARD 4 */}
+          <div className={styles.mainCard}>
+            <div className="flex gap-3 px-6">
+              <div className="flex flex-col">
+                <p className="text-[#A3AED0] text-[16px] whitespace-nowrap font-dm-sans font-medium leading-[28px] tracking-[-0.02em]">
+                  Activity
+                </p>
+                <p className="text-[#1B2559] text-[24px]  font-dm-sans font-bold leading-[32px] tracking-[-0.02em]">
+                  $540.50
+                </p>
+              </div>
+            </div>
+            <div className="ml-auto mr-[22.5px] w-[58px] overflow-hidden right-[20px] relative">
+              <ResponsiveContainer width="100%" height={90}>
+                <LineChart
+                  data={earningsActivityData}
+                  margin={{ top: 5, right: 0, left: 1, bottom: 5 }}
+                >
+                  <defs>
+                    <linearGradient
+                      id="clientsLineGradient"
+                      x1="0"
+                      y1="0"
+                      x2="1"
+                      y2="0"
+                    >
+                      <stop offset="0%" stopColor="#4F2CFF" />
+                      <stop offset="100%" stopColor="#CBBEFF" />
+                    </linearGradient>
+                  </defs>
+                  <Line
+                    type="monotone"
+                    dataKey="value"
+                    stroke="url(#clientsLineGradient)"
+                    strokeWidth={3}
+                    dot={false}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         </div>
 
         <section className="flex gap-5 px-[31px] ">
