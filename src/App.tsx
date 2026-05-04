@@ -35,36 +35,65 @@ function App() {
             <img src={vector} alt="vector" className="w-4 h-4" />
             <span>Dashboard</span>
           </button>
-          <button className={styles.sideBarButton}>
-            <img src={activity} alt="activity" className="w-4 h-4" />
+
+          <button className={styles.sideBarButton + " group"}>
+            <img
+              src={activity}
+              alt="activity"
+              className="w-5 h-[13px] group-hover:brightness-0 group-hover:invert"
+            />
             Activity
           </button>
-          <button className={styles.sideBarButton}>
-            <img src={library} alt="library" className="w-4 h-4" />
+          <button className={styles.sideBarButton + " group"}>
+            <img
+              src={library}
+              alt="library"
+              className="w-4 h-[21px] group-hover:brightness-0 group-hover:invert"
+            />
             Library
           </button>
-          <button className={styles.sideBarButton}>
-            <img src={security} alt="security" className="w-4 h-4" />
+          <button className={styles.sideBarButton + " group"}>
+            <img
+              src={security}
+              alt="security"
+              className="w-4 h-[21px] group-hover:brightness-0 group-hover:invert"
+            />
             Security
           </button>
-          <button className={styles.sideBarButton}>
-            <img src={schedules} alt="schedules" className="w-4 h-4" />
+          <button className={styles.sideBarButton + " group"}>
+            <img
+              src={schedules}
+              alt="schedules"
+              className="w-4 h-[21px] group-hover:brightness-0 group-hover:invert"
+            />
             Schedules
           </button>
-          <button className={styles.sideBarButton}>
-            <img src={payouts} alt="payouts" className="w-4 h-4" />
+          <button className={styles.sideBarButton + " group"}>
+            <img
+              src={payouts}
+              alt="payouts"
+              className="w-4 h-[19px] group-hover:brightness-0 group-hover:invert"
+            />
             Payouts
           </button>
-          <button className={styles.sideBarButton}>
-            <img src={settings} alt="settings" className="w-4 h-4" />
+          <button className={styles.sideBarButton + " group"}>
+            <img
+              src={settings}
+              alt="settings"
+              className="w-5 h-5 group-hover:brightness-0 group-hover:invert"
+            />
             Settings
           </button>
         </div>
 
         {/* Log Out  */}
         <div className="mb-[58px]">
-          <button className={styles.sideBarButton}>
-            <img src={logout} alt="logout" className="w-4 h-4" />
+          <button className={styles.sideBarButton + " group"}>
+            <img
+              src={logout}
+              alt="logout"
+              className="w-5 h-4 group-hover:brightness-0 group-hover:invert"
+            />
             Log Out
           </button>
         </div>
