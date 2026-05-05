@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./dashboard.module.css";
 import iconSidebar from "./screenshots/iconSidebar.png";
 import activity from "./screenshots/activity.png";
@@ -16,14 +17,19 @@ import transport from "./screenshots/transport.png";
 import store from "./screenshots/store.png";
 import bus from "./screenshots/bus.png";
 import accept from "./screenshots/accept.png";
+import buttongraph from "./screenshots/buttongraph.png";
 
 import {
   BarChart,
   Bar,
+  Cell,
   ResponsiveContainer,
   LineChart,
   Line,
+  XAxis,
   YAxis,
+  ReferenceLine,
+  Tooltip,
 } from "recharts";
 
 const TOTAL = 45;
@@ -46,6 +52,25 @@ const spendingData = [
   { value: 58 },
   { value: 15 },
 ];
+
+const totalSpentData = [
+  { month: "Jan", value: 78 },
+  { month: "Feb", value: 145 },
+  { month: "Mar", value: 115 },
+  { month: "Apr", value: 128 },
+  { month: "May", value: 106 },
+  { month: "Jun", value: 179, active: true },
+  { month: "Jul", value: 92 },
+  { month: "Aug", value: 145 },
+  { month: "Sep", value: 55 },
+  { month: "Oct", value: 128 },
+  { month: "Nov", value: 84 },
+  { month: "Dec", value: 115 },
+];
+const activeTotalSpent = totalSpentData.find((item) => item.active);
+const activeTotalSpentValue =
+  activeTotalSpent?.value ??
+  Math.max(...totalSpentData.map((item) => item.value));
 
 const lineData = [{ value: 10 }, { value: 35 }, { value: 30 }, { value: 50 }];
 
@@ -89,7 +114,53 @@ const transactions = [
   },
 ];
 
+type HoverBarShapeProps = {
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  fill?: string;
+  index?: number;
+  showDot?: boolean;
+};
+
+function HoverBarShape({
+  x = 0,
+  y = 0,
+  width = 0,
+  height = 0,
+  fill = "#4318FF",
+  showDot = false,
+}: HoverBarShapeProps) {
+  const radius = width / 2;
+  const dotX = x + width / 2;
+  const dotY = y - 4;
+
+  return (
+    <g>
+      <rect x={x} y={y} width={width} height={height} rx={radius} fill={fill} />
+      {showDot && (
+        <circle
+          cx={dotX}
+          cy={dotY}
+          r={3}
+          fill="#A3AED0"
+          stroke="#FFFFFF"
+          strokeWidth={2}
+        />
+      )}
+    </g>
+  );
+}
+
 function App() {
+  const [spentPreviewIndex, setSpentPreviewIndex] = useState<number | null>(
+    null,
+  );
+  const [earningsPreviewIndex, setEarningsPreviewIndex] = useState<
+    number | null
+  >(null);
+
   return (
     <div className={styles.page}>
       {/* SIDEBAR */}
@@ -218,19 +289,27 @@ function App() {
             </div>
 
             <div className="mr-[29px]">
-              <ResponsiveContainer width={85} height={80}>
-                <BarChart data={data} barSize={8} barCategoryGap="20%">
+              <ResponsiveContainer width={85} height={70}>
+                <BarChart
+                  data={data}
+                  barSize={8}
+                  barCategoryGap="20%"
+                  accessibilityLayer={false}
+                >
+                  <YAxis hide domain={[0, TOTAL]} />
                   <Bar
                     dataKey="value"
                     fill="#4318FF"
                     radius={[8, 8, 8, 8]}
-                    stackId="a"
-                  />
-                  <Bar
-                    dataKey="max"
-                    fill="#E9EDF7"
-                    radius={[8, 8, 8, 8]}
-                    stackId="a"
+                    background={{ fill: "#E9EDF7", radius: 8 }}
+                    onMouseEnter={(_, index) => setSpentPreviewIndex(index)}
+                    onMouseLeave={() => setSpentPreviewIndex(null)}
+                    shape={(props) => (
+                      <HoverBarShape
+                        {...props}
+                        showDot={props.index === spentPreviewIndex}
+                      />
+                    )}
                   />
                 </BarChart>
               </ResponsiveContainer>
@@ -292,8 +371,23 @@ function App() {
                     data={earningsIconData}
                     barSize={5}
                     margin={{ top: 1, right: 0, left: 0, bottom: 0 }}
+                    accessibilityLayer={false}
                   >
-                    <Bar dataKey="value" fill="#4318FF" radius={[8, 8, 8, 8]} />
+                    <Bar
+                      dataKey="value"
+                      fill="#4318FF"
+                      radius={[8, 8, 8, 8]}
+                      onMouseEnter={(_, index) =>
+                        setEarningsPreviewIndex(index)
+                      }
+                      onMouseLeave={() => setEarningsPreviewIndex(null)}
+                      shape={(props) => (
+                        <HoverBarShape
+                          {...props}
+                          showDot={props.index === earningsPreviewIndex}
+                        />
+                      )}
+                    />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -353,7 +447,84 @@ function App() {
 
         <section className="flex gap-5 px-[31px] ">
           {/* BIG CARD */}
-          <div className="bg-white h-[345px] w-[720px] rounded-[20px] "></div>
+          <div className="relative h-[345px] w-[720px] rounded-[20px] bg-white px-[34px] py-[28px]">
+            <div className="flex items-start justify-between">
+              <div className="flex flex-col">
+                <p className="text-[#A3AED0] text-[16px] whitespace-nowrap font-dm-sans font-medium leading-[28px] tracking-[-0.02em]">
+                  Total Spent
+                </p>
+                <p className="text-[#1B2559] text-[34px] font-dm-sans font-bold leading-[42px] tracking-[-0.02em]">
+                  $682.5
+                </p>
+              </div>
+
+              <img
+                src={buttongraph}
+                alt="graph"
+                className="h-[33px] w-[33px]"
+              />
+            </div>
+
+            <div className="absolute bottom-[31px] left-[32px] right-[26px] h-[190px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={totalSpentData}
+                  barSize={37}
+                  barCategoryGap={22}
+                  margin={{ top: 8, right: 45, left: 0, bottom: 0 }}
+                  accessibilityLayer={false}
+                >
+                  <XAxis
+                    dataKey="month"
+                    axisLine={false}
+                    tickLine={false}
+                    tickMargin={14}
+                    tick={{
+                      fill: "#A3AED0",
+                      fontSize: 13,
+                      fontFamily: "DM Sans, sans-serif",
+                    }}
+                  />
+                  <YAxis hide domain={[0, activeTotalSpentValue]} />
+                  <ReferenceLine
+                    y={activeTotalSpentValue}
+                    stroke="#4318FF"
+                    strokeDasharray="7 7"
+                    label={{
+                      value: `$${activeTotalSpentValue}`,
+                      position: "right",
+                      fill: "#4318FF",
+                      fontSize: 12,
+                      fontFamily: "DM Sans, sans-serif",
+                    }}
+                  />
+                  <Tooltip
+                    cursor={false}
+                    formatter={(value) => [`$${value}`, "Spent"]}
+                    contentStyle={{
+                      border: "none",
+                      borderRadius: 10,
+                      boxShadow: "0 8px 24px rgba(27, 37, 89, 0.12)",
+                      color: "#1B2559",
+                      fontFamily: "DM Sans, sans-serif",
+                    }}
+                    labelStyle={{
+                      color: "#A3AED0",
+                      fontFamily: "DM Sans, sans-serif",
+                    }}
+                  />
+                  <Bar dataKey="value" radius={[8, 8, 8, 8]}>
+                    {totalSpentData.map((item) => (
+                      <Cell
+                        key={item.month}
+                        fill={item.active ? "#4318FF" : "#E9EDF7"}
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
 
           {/* AVATAR CARD */}
           <div className={styles.smallCard}>
@@ -440,8 +611,33 @@ function App() {
                   barSize={18}
                   barCategoryGap={27}
                   margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+                  accessibilityLayer={false}
                 >
                   <YAxis hide domain={[0, SPENDING_TOTAL]} />
+                  <Tooltip
+                    cursor={false}
+                    formatter={(value) => [`$${value}`, "Spent"]}
+                    contentStyle={{
+                      border: "none",
+                      borderRadius: 14,
+                      boxShadow: "0 10px 30px rgba(27, 37, 89, 0.14)",
+                      color: "#1B2559",
+                      fontFamily: "DM Sans, sans-serif",
+                      padding: "10px 14px",
+                    }}
+                    itemStyle={{
+                      color: "#4318FF",
+                      fontFamily: "DM Sans, sans-serif",
+                      fontWeight: 700,
+                      padding: 0,
+                    }}
+                    labelStyle={{
+                      color: "#A3AED0",
+                      fontFamily: "DM Sans, sans-serif",
+                      fontSize: 12,
+                      marginBottom: 4,
+                    }}
+                  />
                   <Bar
                     dataKey="value"
                     fill="#4318FF"

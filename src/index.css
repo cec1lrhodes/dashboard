@@ -5,3 +5,10 @@
   --font-poppins: "Poppins", sans-serif;
   --font-roboto: "Roboto", sans-serif;
 }
+
+.recharts-wrapper:focus,
+.recharts-surface:focus,
+.recharts-layer:focus,
+.recharts-rectangle:focus {
+  outline: none !important;
+}
