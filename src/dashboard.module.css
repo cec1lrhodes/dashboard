@@ -39,3 +39,12 @@
 .sideBarButton {
   @apply hover:bg-[#4318FF] hover:w-[214px] h-[45px] hover:rounded-[5px] hover:text-white font-dm-sans font-medium text-[16px]  rounded-[5px] leading-[28px] tracking-[-0.02em] text-[#A3AED0] flex items-center gap-[14px] px-4;
 }
+
+.dashboardIcon {
+  filter: brightness(0) saturate(100%) invert(74%) sepia(13%) saturate(767%)
+    hue-rotate(187deg) brightness(91%) contrast(88%);
+}
+
+.sideBarButton:hover .dashboardIcon {
+  filter: brightness(0) invert(1);
+}

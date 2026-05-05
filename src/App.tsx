@@ -182,9 +182,14 @@ function App() {
           <div className="w-full h-px bg-[#F4F7FE] my-2"></div>
 
           {/* SIDEBAR BUTTONS */}
-          <button className="bg-[#4318FF] text-white w-[214px] h-[45px] rounded-lg flex items-center gap-[14px] px-4">
-            <img src={vector} alt="vector" className="w-4 h-4" />
-            <span>Dashboard</span>
+
+          <button className={styles.sideBarButton + " group"}>
+            <img
+              src={vector}
+              alt="vector"
+              className={styles.dashboardIcon + " w-4 h-4"}
+            />
+            Dashboard
           </button>
 
           <button className={styles.sideBarButton + " group"}>
