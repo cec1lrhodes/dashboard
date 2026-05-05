@@ -15,8 +15,16 @@ import arrowright from "./screenshots/arrowright.png";
 import transport from "./screenshots/transport.png";
 import store from "./screenshots/store.png";
 import bus from "./screenshots/bus.png";
+import accept from "./screenshots/accept.png";
 
-import { BarChart, Bar, ResponsiveContainer, LineChart, Line } from "recharts";
+import {
+  BarChart,
+  Bar,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  YAxis,
+} from "recharts";
 
 const TOTAL = 45;
 
@@ -26,6 +34,17 @@ const data = [
   { value: 25, max: TOTAL - 25 },
   { value: 35, max: TOTAL - 35 },
   { value: 15, max: TOTAL - 15 },
+];
+
+const SPENDING_TOTAL = 70;
+const spendingData = [
+  { value: 38 },
+  { value: 26 },
+  { value: 52 },
+  { value: 32 },
+  { value: 44 },
+  { value: 58 },
+  { value: 15 },
 ];
 
 const lineData = [{ value: 10 }, { value: 35 }, { value: 30 }, { value: 50 }];
@@ -387,7 +406,52 @@ function App() {
         </section>
 
         <section className="flex gap-5 px-[31px] mt-5 ">
-          <div className={styles.smallCard}></div>
+          {/* SPENDING CARD */}
+          <div className={styles.smallCard + " relative px-[32px] py-[29px]"}>
+            <div className="flex items-start justify-between">
+              <div className="flex flex-col">
+                <p className="text-[#A3AED0] text-[16px] whitespace-nowrap font-dm-sans font-medium leading-[28px] tracking-[-0.02em]">
+                  Spent this month
+                </p>
+                <p className="text-[#1B2559] text-[34px] font-dm-sans font-bold leading-[42px] tracking-[-0.02em]">
+                  $682.5
+                </p>
+                <div className="mt-[5px] flex items-center gap-[6px] text-[#05CD99] text-[16px] font-dm-sans font-bold leading-[28px] tracking-[-0.02em]">
+                  <span className="flex h-[17px] w-[17px] items-center justify-center rounded-full bg-[#05CD99]">
+                    <img
+                      src={accept}
+                      alt="accept"
+                      className="h-[15px] w-[15px]"
+                    />
+                  </span>
+                  On track
+                </div>
+              </div>
+
+              <p className="mt-[2px] text-[#05CD99] text-[12px] font-dm-sans font-bold leading-[20px] tracking-[-0.02em]">
+                +2.45%
+              </p>
+            </div>
+
+            <div className="absolute bottom-[31px] left-[31px] right-[31px] h-[142px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={spendingData}
+                  barSize={18}
+                  barCategoryGap={27}
+                  margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+                >
+                  <YAxis hide domain={[0, SPENDING_TOTAL]} />
+                  <Bar
+                    dataKey="value"
+                    fill="#4318FF"
+                    radius={[9, 9, 9, 9]}
+                    background={{ fill: "#E9EDF7", radius: 9 }}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
           {/* TRANSACTIONS CARD */}
           <div className={styles.smallCard + " relative"}>
             <div>
