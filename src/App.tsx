@@ -252,7 +252,7 @@ function App() {
 
       <main className="ml-[290px] flex flex-col">
         {/* Header */}
-        <header className="flex items-center justify-between h-[146px] px-6">
+        <header className="flex items-center  h-[146px] px-6">
           <div>
             <p className="text-[#707EAE] font-dm-sans text-[14px] leading-[24px] tracking-[-0.02em]">
               Hi Andrei,
@@ -262,7 +262,11 @@ function App() {
             </p>
           </div>
 
-          <div className={styles.input + " flex items-center gap-3"}>
+          <div
+            className={
+              styles.input + " flex items-center gap-3 ml-[450px] mt-16"
+            }
+          >
             <img
               src={searchicon}
               alt="searchicon"
@@ -280,10 +284,10 @@ function App() {
           {/* CARD 1 */}
           <div className={styles.mainCard}>
             <div className="flex flex-col px-6">
-              <p className="text-[#A3AED0] text-[14px] whitespace-nowrap font-dm-sans font-medium leading-[24px] tracking-[-0.02em]">
+              <p className="mainCardText text-[#A3AED0] text-[14px] whitespace-nowrap font-dm-sans font-medium leading-[24px] tracking-[-0.02em]">
                 Spent this month
               </p>
-              <p className="text-[#1B2559] text-[24px]  font-dm-sans font-bold leading-[32px] tracking-[-0.02em]">
+              <p className="mainCardText text-[#1B2559] text-[24px]  font-dm-sans font-bold leading-[32px] tracking-[-0.02em]">
                 $682.5
               </p>
             </div>
@@ -299,9 +303,9 @@ function App() {
                   <YAxis hide domain={[0, TOTAL]} />
                   <Bar
                     dataKey="value"
-                    fill="#4318FF"
+                    fill="var(--bar-fill)"
                     radius={[8, 8, 8, 8]}
-                    background={{ fill: "#E9EDF7", radius: 8 }}
+                    background={{ fill: "var(--bar-bg)", radius: 8 }}
                     onMouseEnter={(_, index) => setSpentPreviewIndex(index)}
                     onMouseLeave={() => setSpentPreviewIndex(null)}
                     shape={(props) => (
@@ -323,10 +327,10 @@ function App() {
                 <img src={group} alt="clients" className="w-[25px] h-[18px]" />
               </div>
               <div className="flex flex-col">
-                <p className="text-[#A3AED0] text-[16px] whitespace-nowrap font-dm-sans font-bold leading-[28px] tracking-[-0.02em]">
+                <p className=" mainCardText text-[#A3AED0] text-[16px] whitespace-nowrap font-dm-sans font-bold leading-[28px] tracking-[-0.02em]">
                   New clients
                 </p>
-                <p className="text-[#1B2559] text-[28px]  font-dm-sans font-bold leading-[30px] tracking-[-0.02em]">
+                <p className="mainCardText text-[#1B2559] text-[28px]  font-dm-sans font-bold leading-[30px] tracking-[-0.02em]">
                   321
                 </p>
               </div>
@@ -349,11 +353,26 @@ function App() {
                       <stop offset="0%" stopColor="#4F2CFF" />
                       <stop offset="100%" stopColor="#CBBEFF" />
                     </linearGradient>
+
+                    <linearGradient
+                      id="clientsLineHoverGradient"
+                      x1="0"
+                      y1="0"
+                      x2="1"
+                      y2="0"
+                    >
+                      <stop offset="0%" stopColor="#FFFFFF" stopOpacity={1} />
+                      <stop
+                        offset="100%"
+                        stopColor="#FFFFFF"
+                        stopOpacity={0.35}
+                      />
+                    </linearGradient>
                   </defs>
                   <Line
                     type="monotone"
                     dataKey="value"
-                    stroke="url(#clientsLineGradient)"
+                    stroke="var(--activity-line)"
                     strokeWidth={3}
                     dot={false}
                   />
@@ -392,10 +411,10 @@ function App() {
                 </ResponsiveContainer>
               </div>
               <div className="flex flex-col">
-                <p className="text-[#A3AED0] text-[14px] whitespace-nowrap font-dm-sans font-medium leading-[24px] tracking-[-0.02em]">
+                <p className="mainCardText text-[#A3AED0] text-[14px] whitespace-nowrap font-dm-sans font-medium leading-[24px] tracking-[-0.02em]">
                   Earnings
                 </p>
-                <p className="text-[#1B2559] text-[24px]  font-dm-sans font-bold leading-[32px] tracking-[-0.02em]">
+                <p className="mainCardText text-[#1B2559] text-[24px]  font-dm-sans font-bold leading-[32px] tracking-[-0.02em]">
                   $350.40
                 </p>
               </div>
@@ -406,10 +425,10 @@ function App() {
           <div className={styles.mainCard}>
             <div className="flex gap-3 px-6">
               <div className="flex flex-col">
-                <p className="text-[#A3AED0] text-[16px] whitespace-nowrap font-dm-sans font-medium leading-[28px] tracking-[-0.02em]">
+                <p className="mainCardText text-[#A3AED0] text-[16px] whitespace-nowrap font-dm-sans font-medium leading-[28px] tracking-[-0.02em]">
                   Activity
                 </p>
-                <p className="text-[#1B2559] text-[24px]  font-dm-sans font-bold leading-[32px] tracking-[-0.02em]">
+                <p className="mainCardText text-[#1B2559] text-[24px] font-dm-sans font-bold leading-[32px] tracking-[-0.02em]">
                   $540.50
                 </p>
               </div>
@@ -431,11 +450,26 @@ function App() {
                       <stop offset="0%" stopColor="#4F2CFF" />
                       <stop offset="100%" stopColor="#CBBEFF" />
                     </linearGradient>
+
+                    <linearGradient
+                      id="clientsLineHoverGradient"
+                      x1="0"
+                      y1="0"
+                      x2="1"
+                      y2="0"
+                    >
+                      <stop offset="0%" stopColor="#FFFFFF" stopOpacity={1} />
+                      <stop
+                        offset="100%"
+                        stopColor="#FFFFFF"
+                        stopOpacity={0.35}
+                      />
+                    </linearGradient>
                   </defs>
                   <Line
                     type="monotone"
                     dataKey="value"
-                    stroke="url(#clientsLineGradient)"
+                    stroke="var(--activity-line)"
                     strokeWidth={3}
                     dot={false}
                   />

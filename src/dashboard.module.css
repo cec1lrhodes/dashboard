@@ -12,8 +12,24 @@
   @apply bg-[#F9FAFB] border border-[#D1D5DB] rounded-[10px] p-5 w-[341px] h-[46px] font-dm-sans text-[#8F9BBA];
 }
 
+/* .mainCard {
+  @apply bg-[#F9FAFB]  rounded-[20px]  w-[259px] h-[97px] flex items-center justify-between hover:bg-linear-to-br from-[#868CFF] to-[#4318FF] hover:text-white;
+} */
+
 .mainCard {
-  @apply bg-[#F9FAFB]  rounded-[20px]  w-[259px] h-[97px] flex items-center justify-between;
+  --bar-fill: #4318ff;
+  --bar-bg: #e9edf7;
+  --activity-line: url(#clientsLineGradient);
+  @apply bg-[#F9FAFB] rounded-[20px] w-[259px] h-[97px] flex items-center justify-between transition-all duration-200;
+}
+.mainCard:hover {
+  --bar-fill: rgba(255, 255, 255, 0.95);
+  --bar-bg: rgba(255, 255, 255, 0.22);
+  --activity-line: url(#clientsLineHoverGradient);
+  @apply bg-linear-to-br from-[#868CFF] to-[#4318FF];
+}
+.mainCard:hover :global(.mainCardText) {
+  @apply text-white;
 }
 
 .smallCard {
